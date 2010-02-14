@@ -56,6 +56,7 @@ module RequestLogAnalyzer
         options[:output] = 'FancyHTML'  if options[:output] =~ /^fancy_?html$/i
         options[:output] = 'HTML'       if options[:output] =~ /^html$/i
         options[:output] = 'FixedWidth' if options[:output] =~ /^fixed_?width$/i
+        options[:output] = 'SceaHTML'   if options[:output] =~ /^scea/i
       end
       
       # Register sources
@@ -333,9 +334,6 @@ module RequestLogAnalyzer
       if @output.io.kind_of?(File)
         puts
         puts "Report written to: " + File.expand_path(@output.io.path)
-        puts "Need an expert to analyze your application?"
-        puts "Mail to contact@railsdoctors.com or visit us at http://railsdoctors.com"
-        puts "Thanks for using request-log-analyzer!"
         @output.io.close
       elsif @output.io.kind_of?(RequestLogAnalyzer::Mailer)
         @output.io.mail
