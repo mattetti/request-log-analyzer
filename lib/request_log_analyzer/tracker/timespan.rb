@@ -55,10 +55,11 @@ module RequestLogAnalyzer::Tracker
     # <tt>output</tt> The output object
     def report(output)
       output.title(options[:title]) if options[:title]
-
+      table_opts = options[:title] ? {:id => options[:title].downcase.gsub(/\s/, '-')} : {:id => 'timespan'}
+      
       if @last > 0 && @first < 99999999999999
         output.with_style(:cell_separator => false) do
-          output.table({:width => 20}, {}) do |rows|
+          output.table([{:width => 20}, {}], table_opts) do |rows|
             rows << ['First request:', first_timestamp.strftime('%Y-%m-%d %H:%M:%I')]
             rows << ['Last request:',  last_timestamp.strftime('%Y-%m-%d %H:%M:%I')]
             rows << ['Total time analyzed:', "#{timespan.ceil} days"]

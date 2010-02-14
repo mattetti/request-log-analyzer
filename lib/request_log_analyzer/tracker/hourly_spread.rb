@@ -79,9 +79,10 @@ module RequestLogAnalyzer::Tracker
         output << "None found.\n"
         return
       end
-
+      
+      table_opts = title ? {:id => title.downcase.gsub(/\s/, '-')} : {}
       days = [1, timespan].max
-      output.table({}, {:align => :right}, {:type => :ratio, :width => :rest, :treshold => 0.15}) do |rows|
+      output.table([{}, {:align => :right}, {:type => :ratio, :width => :rest, :treshold => 0.15}], table_opts) do |rows|
         @hour_frequencies.each_with_index do |requests, index|
           ratio            = requests.to_f / total_requests.to_f
           requests_per_day = (requests / days).ceil

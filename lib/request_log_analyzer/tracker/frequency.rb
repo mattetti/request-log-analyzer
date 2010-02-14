@@ -85,7 +85,8 @@ module RequestLogAnalyzer::Tracker
         sorted_categories = output.slice_results(sorted_by_frequency)
         total_hits        = overall_frequency
 
-        output.table({:align => :left}, {:align => :right }, {:align => :right}, {:type => :ratio, :width => :rest}) do |rows|
+        table_opts = options[:title] ? {:id => options[:title].downcase.gsub(/\s/, '-')} : {}
+        output.table([{:align => :left}, {:align => :right }, {:align => :right}, {:type => :ratio, :width => :rest}], table_opts) do |rows|
           sorted_categories.each do |(cat, count)|
             rows << [cat, "#{count} hits", '%0.1f%%' % ((count.to_f / total_hits.to_f) * 100.0), (count.to_f / total_hits.to_f)]
           end

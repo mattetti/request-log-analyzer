@@ -106,8 +106,10 @@ module RequestLogAnalyzer::Aggregator
     def report_header(output)
       output.title("Request summary")
 
+      table_opts = {:id => 'request-summary'}
+
       output.with_style(:cell_separator => false) do
-        output.table({:width => 20}, {:font => :bold}) do |rows|
+        output.table([{:width => 20}, {:font => :bold}], table_opts) do |rows|
           rows << ['Parsed lines:',    source.parsed_lines]
           rows << ['Skipped lines:',   source.skipped_lines]
           rows << ['Parsed requests:', source.parsed_requests]

@@ -83,9 +83,11 @@ module RequestLogAnalyzer::Output
     end
 
     # Generate a report table and push it into the output object.
-    # Yeilds a rows array into which the rows can be pushed
+    # Yields a rows array into which the rows can be pushed
     # <tt>*colums<tt> Array of Column hashes (see Column options).
+    # <tt>table_opts<tt> Hash of options for the table.
     # <tt>&block</tt>: A block yeilding the rows.
+    #
     #
     # === Column options
     # Columns is an array of hashes containing the column definitions.
@@ -94,16 +96,20 @@ module RequestLogAnalyzer::Output
     # * <tt>:type</tt> :ratio or nil
     # * <tt>:width</tt> Width in characters or :rest
     #
+    # === Table options
+    # * <tt>:id</tt> table id
+    #
+    #
     # === Example
     # The output object should support table definitions:
     #
-    # output.table({:align => :left}, {:align => :right }, {:align => :right}, {:type => :ratio, :width => :rest}) do |rows|
+    # output.table([{:align => :left}, {:align => :right }, {:align => :right}, {:type => :ratio, :width => :rest}]) do |rows|
     #   sorted_frequencies.each do |(cat, count)|
     #     rows << [cat, "#{count} hits", '%0.1f%%' % ((count.to_f / total_hits.to_f) * 100.0), (count.to_f / total_hits.to_f)]
     #   end
     # end
     #
-    def table(*columns, &block)
+    def table(columns, table_opts={}, &block)
     end
 
     protected
