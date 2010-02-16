@@ -80,9 +80,9 @@ module RequestLogAnalyzer::Tracker
         return
       end
       
-      table_opts = title ? {:id => title.downcase.gsub(/\s/, '-')} : {}
+      table_opts = title ? {:id => title.downcase.gsub(/\s/, '-'), :class => 'sortable'} : {:class => 'sortable'}
       days = [1, timespan].max
-      output.table([{}, {:align => :right}, {:type => :ratio, :width => :rest, :treshold => 0.15}], table_opts) do |rows|
+      output.table([{:title => 'time'}, {:align => :right, :title => 'Hits/day'}, {:type => :ratio, :width => :rest, :treshold => 0.15, :title => 'Amount of requests', :class => 'unsortable'}], table_opts) do |rows|
         @hour_frequencies.each_with_index do |requests, index|
           ratio            = requests.to_f / total_requests.to_f
           requests_per_day = (requests / days).ceil

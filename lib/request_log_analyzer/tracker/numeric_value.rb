@@ -57,7 +57,7 @@ module RequestLogAnalyzer::Tracker
     #  * </tt>:title</tt> The title of the table
     #  * </tt>:sort</tt> The key to sort on (:hits, :cumulative, :average, :min or :max)
     def report_table(output, sort, options = {}, &block)
-      table_opts = options[:title] ? {:id => options[:title].downcase.gsub(/\s/, '-')} : {}
+      table_opts = options[:title] ? {:id => options[:title].downcase.gsub(/\s/, '-'), :class => 'sortable'} : {}
       output.puts
       top_categories = output.slice_results(sorted_by(sort))
       output.with_style(:top_line => true) do

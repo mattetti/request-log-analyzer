@@ -59,10 +59,10 @@ module RequestLogAnalyzer::Output
       rows = Array.new
       yield(rows)
 
-      @io << tag(:table, {:cellspacing => 0}.merge(table_opts)) do |content|
+      @io << tag(:table, {:cellspacing => 0, :class => 'report-table'}.merge(table_opts)) do |content|
         if table_has_header?(columns)
           content << tag(:tr) do
-            columns.map { |col| tag(:th, col[:title]) }.join("\n")
+            columns.map{|col| tag(:th, col[:title], extracted_html_options(col)) }.join("\n")
           end
         end
 
@@ -87,15 +87,17 @@ module RequestLogAnalyzer::Output
 
       @io << "<html>"
       @io << tag(:head) do |headers|
-        tabber_js_file = File.expand_path(File.join(File.dirname(__FILE__), 'scea', 'tabber-minimized.js'))
-        css_file = File.expand_path(File.join(File.dirname(__FILE__), 'scea', 'style.css'))
+        tabber_js_file    = File.expand_path(File.join(File.dirname(__FILE__), 'scea', 'tabber-minimized.js'))
+        table_sorter_file = File.expand_path(File.join(File.dirname(__FILE__), 'scea', 'table-sorter.js'))
+        css_file          = File.expand_path(File.join(File.dirname(__FILE__), 'scea', 'style.css'))
 
-        headers << tag(:title, 'Request-log-analyzer report')
+        headers << tag(:title, 'SCEA Log Analyzer Report')
         headers << tag(:style, File.open(css_file).read, :type => "text/css")
         headers << tag(:script, File.open(tabber_js_file).read, :type => 'text/javascript')
+        headers << tag(:script, File.open(table_sorter_file).read, :type => 'text/javascript')
       end
       @io << '<body>'
-      @io << tag(:h1, 'Request-log-analyzer summary report')
+      @io << tag(:h1, 'SCEA Log Analyzer Report')
       # @io << tag(:p, "Version #{RequestLogAnalyzer::VERSION}")
     end
     
@@ -114,6 +116,13 @@ module RequestLogAnalyzer::Output
     end
 
     protected
+
+    def extracted_html_options(opts)
+      output = ""
+      output << " id='#{opts[:id]}" if opts[:id]
+      output << " class='#{opts[:class]}'" if opts[:class]
+      output
+    end
 
     # HTML tag writer helper
     # <tt>tag</tt> The tag to generate

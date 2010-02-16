@@ -331,7 +331,7 @@ module RequestLogAnalyzer
           @aggregators.each {|agg| agg.report(out) }
         end
       else
-        @aggregators.each { |agg| agg.report(@output) }
+        @aggregators.each {|agg| agg.report(@output) }
       end
       @output.footer
 

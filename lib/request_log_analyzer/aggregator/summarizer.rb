@@ -105,7 +105,7 @@ module RequestLogAnalyzer::Aggregator
     # <tt>output</tt> RequestLogAnalyzer::Output object to output to
     def report_header(output)
       output << "<div class='tabbertab'>"
-      output.title("Request summary")
+      output.title("Parsing summary")
 
       table_opts = {:id => 'request-summary'}
 
@@ -126,6 +126,7 @@ module RequestLogAnalyzer::Aggregator
     # <tt>output</tt> RequestLogAnalyzer::Output object to output to
     def report_footer(output)
       if has_log_ordering_warnings?
+        output << "<div id='parse-warning'>"
         output.title("Parse warnings")
 
         output.puts "Parsable lines were encountered without a header line before it. It"
@@ -133,6 +134,7 @@ module RequestLogAnalyzer::Aggregator
         output.puts "Visit this website for logging configuration tips:"
         output.puts output.link("http://github.com/wvanbergen/request-log-analyzer/wikis/configure-logging")
         output.puts
+        output << "</div>"
       end
     end
 

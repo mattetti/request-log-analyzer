@@ -7,6 +7,11 @@ body {
 	padding-bottom:20px;
 }
 
+h1{
+  font-family: "Arial,Sans-Serif";
+  text-align: center;
+}
+
 a {
 	color: #c75f3e;
 }
@@ -17,11 +22,19 @@ a {
 	background: #CAE8EA;
 }
 
-#mytable {
-	width: 700px;
+.report-table, .sortable {
+	width: 100%;
 	padding: 0;
 	margin: 0;
 	padding-bottom:10px;
+}
+
+.report-table a, .sortable a {
+  text-decoration: none;
+}
+
+.report-table img, .sortable img{
+ border: none; 
 }
 
 caption {
@@ -58,6 +71,11 @@ td.alt {
 	color: #797268;
 }
 
+/* uncomment to display potential warning */
+div#parse-warning{
+  display:none;
+}
+
 /*--------------------------------------------------
   REQUIRED to hide the non-active tab content.
   But do not hide them in the print stylesheet!
@@ -66,95 +84,60 @@ td.alt {
  display:none;
 }
 
-/*--------------------------------------------------
-  .tabber = before the tabber interface is set up
-  .tabberlive = after the tabber interface is set up
-  --------------------------------------------------*/
-.tabber {
-}
-.tabberlive {
- margin-top:1em;
+.tabberlive{
+font-family: Arial,Sans-Serif;
+margin: 0 auto;
+width: 70%;
+border-bottom: 1px solid #ddd;
 }
 
-/*--------------------------------------------------
-  ul.tabbernav = the tab navigation list
-  li.tabberactive = the active tab
-  --------------------------------------------------*/
 ul.tabbernav
 {
- margin:0;
- padding: 3px 0;
- border-bottom: 1px solid #778;
- font: bold 12px Verdana, sans-serif;
+width: 60%;
+text-align: center;
+margin: 0 auto;
+padding: 0;
+text-indent: 0;
+list-style-type: none;
 }
 
 ul.tabbernav li
 {
- list-style: none;
- margin: 0;
- display: inline;
+padding: 0;
+margin: 0;
+text-indent: 0;
+display: inline;
 }
 
 ul.tabbernav li a
 {
- padding: 3px 0.5em;
- margin-left: 3px;
- border: 1px solid #778;
- border-bottom: none;
- background: #DDE;
- text-decoration: none;
+letter-spacing: -1px;
+text-decoration: none;
+color: #ccc;
+font-size: 1em;
+padding: 0 12px;
+display: block;
+/*border-top: .5em solid #eee;*/
 }
 
-ul.tabbernav li a:link { color: #448; }
-ul.tabbernav li a:visited { color: #667; }
-
-ul.tabbernav li a:hover
+ul.tabbernav li a:hover,ul.tabbernav a#current
 {
- color: #000;
- background: #AAE;
- border-color: #227;
+color: #333;
+border-top: none;
+font-size: 1.5em;
 }
 
-ul.tabbernav li.tabberactive a
-{
- background-color: #fff;
- border-bottom: 1px solid #fff;
-}
+ul.tabbernav a#current { color: #fc6; }
 
-ul.tabbernav li.tabberactive a:hover
-{
- color: #000;
- background: white;
- border-bottom: 1px solid white;
-}
 
-/*--------------------------------------------------
-  .tabbertab = the tab content
-  Add style only after the tabber interface is set up (.tabberlive)
-  --------------------------------------------------*/
-.tabberlive .tabbertab {
- padding:5px;
- border:1px solid #aaa;
- border-top:0;
-
- /* If you don't want the tab size changing whenever a tab is changed
-    you can set a fixed height */
-
- /* height:200px; */
-
- /* If you set a fix height set overflow to auto and you will get a
-    scrollbar when necessary */
-
- /* overflow:auto; */
-}
 
 /* If desired, hide the heading since a heading is provided by the tab */
-.tabberlive .tabbertab h2 {
+/*.tabberlive .tabbertab h2 {
  display:none;
 }
 .tabberlive .tabbertab h3 {
  display:none;
-}
+}*/
 
 /* Example of using an ID to set different styles for the tabs on the page */
 .tabberlive#tab1 {

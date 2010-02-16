@@ -69,7 +69,6 @@ module RequestLogAnalyzer::Aggregator
 
     # Prints a short report of what has been inserted into the database
     def report(output, html_options={})
-      output << "<div #{html_options.map{|k,v| '#{k}=#{v}'}.join(' ')}>"
       output.title('Request database created')
 
       output <<  "A database file has been created with all parsed request information.\n"
@@ -78,7 +77,6 @@ module RequestLogAnalyzer::Aggregator
       output <<  "To open a Ruby console to inspect the database, run the following command.\n"
       output <<  output.colorize("  $ request-log-analyzer console -d #{options[:database]}\n", :bold)
       output << "\n"
-      output << "</div>"
     end
 
   end

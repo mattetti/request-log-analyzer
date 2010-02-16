@@ -54,8 +54,8 @@ module RequestLogAnalyzer::Tracker
     # Any options for the report should have been set during initialize.
     # <tt>output</tt> The output object
     def report(output)
-      output.title(options[:title]) if options[:title]
-      table_opts = options[:title] ? {:id => options[:title].downcase.gsub(/\s/, '-')} : {:id => 'timespan'}
+      output.title(options[:title] || 'Timespan')
+      table_opts = options[:title] ? {:id => options[:title].downcase.gsub(/\s/, '-')} : {:id => 'timespan', :class => 'report-table'}
       
       if @last > 0 && @first < 99999999999999
         output.with_style(:cell_separator => false) do
