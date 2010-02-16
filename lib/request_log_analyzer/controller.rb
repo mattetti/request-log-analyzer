@@ -326,7 +326,13 @@ module RequestLogAnalyzer
       @aggregators.each { |agg| agg.finalize }
 
       @output.header
-      @aggregators.each { |agg| agg.report(@output) }
+      if @output.respond_to?(:wrapper)
+        @output.wrapper do |out|
+          @aggregators.each {|agg| agg.report(out) }
+        end
+      else
+        @aggregators.each { |agg| agg.report(@output) }
+      end
       @output.footer
 
       @source.finalize

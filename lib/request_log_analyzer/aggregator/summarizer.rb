@@ -90,7 +90,7 @@ module RequestLogAnalyzer::Aggregator
 
     # Call report on all trackers.
     # <tt>output</tt> RequestLogAnalyzer::Output object to output to
-    def report(output)
+    def report(output, html_options={})
       report_header(output)
       if source.parsed_requests > 0
         @trackers.each { |tracker| output.report_tracker(tracker) }
@@ -104,6 +104,7 @@ module RequestLogAnalyzer::Aggregator
     # Generate report header.
     # <tt>output</tt> RequestLogAnalyzer::Output object to output to
     def report_header(output)
+      output << "<div class='tabbertab'>"
       output.title("Request summary")
 
       table_opts = {:id => 'request-summary'}
@@ -118,6 +119,7 @@ module RequestLogAnalyzer::Aggregator
         end
       end
       output << "\n"
+      output << "</div>"
     end
 
     # Generate report footer.

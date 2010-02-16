@@ -45,6 +45,12 @@ module RequestLogAnalyzer::Output
       url = text if url.nil?
       tag(:a, text, :href => url)
     end
+    
+    def report_tracker(tracker)
+      @io << "<div class='tabbertab' title='#{tracker.title}'>"
+      tracker.report(self)
+      @io << '</div>'
+    end
 
     # Generate a report table in HTML and push it into the output object.
     # <tt>*colums<tt> Columns hash
@@ -81,72 +87,23 @@ module RequestLogAnalyzer::Output
 
       @io << "<html>"
       @io << tag(:head) do |headers|
+        tabber_js_file = File.expand_path(File.join(File.dirname(__FILE__), 'scea', 'tabber-minimized.js'))
+        css_file = File.expand_path(File.join(File.dirname(__FILE__), 'scea', 'style.css'))
+
         headers << tag(:title, 'Request-log-analyzer report')
-        headers << tag(:style, '
-        body {
-        	font: normal 11px auto "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
-        	color: #4f6b72;
-        	background: #E6EAE9;
-        	padding-left:20px;
-        	padding-top:20px;
-        	padding-bottom:20px;
-        }
-
-        a {
-        	color: #c75f3e;
-        }
-
-        .color_bar {
-          border: 1px solid;
-          height:10px;
-        	background: #CAE8EA;
-        }
-
-        #mytable {
-        	width: 700px;
-        	padding: 0;
-        	margin: 0;
-        	padding-bottom:10px;
-        }
-
-        caption {
-        	padding: 0 0 5px 0;
-        	width: 700px;	
-        	font: italic 11px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
-        	text-align: right;
-        }
-
-        th {
-        	font: bold 11px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
-        	color: #4f6b72;
-        	border-right: 1px solid #C1DAD7;
-        	border-bottom: 1px solid #C1DAD7;
-        	border-top: 1px solid #C1DAD7;
-        	letter-spacing: 2px;
-        	text-transform: uppercase;
-        	text-align: left;
-        	padding: 6px 6px 6px 12px;
-        	background: #CAE8EA url(images/bg_header.jpg) no-repeat;
-        }
-
-        td {
-        	font: bold 11px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
-        	border-right: 1px solid #C1DAD7;
-        	border-bottom: 1px solid #C1DAD7;
-        	background: #fff;
-        	padding: 6px 6px 6px 12px;
-        	color: #4f6b72;
-        }
-
-        td.alt {
-        	background: #F5FAFA;
-        	color: #797268;
-        }
-        ', :type => "text/css")
+        headers << tag(:style, File.open(css_file).read, :type => "text/css")
+        headers << tag(:script, File.open(tabber_js_file).read, :type => 'text/javascript')
       end
       @io << '<body>'
-      # @io << tag(:h1, 'Request-log-analyzer summary report')
+      @io << tag(:h1, 'Request-log-analyzer summary report')
       # @io << tag(:p, "Version #{RequestLogAnalyzer::VERSION}")
+    end
+    
+    # wrap the report body in this method
+    def wrapper
+      @io << "<div class='tabber'>"
+      yield(self)
+      @io << "</div>"
     end
 
     # Generate a footer for a report
