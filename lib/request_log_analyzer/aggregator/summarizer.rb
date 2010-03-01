@@ -104,7 +104,7 @@ module RequestLogAnalyzer::Aggregator
     # Generate report header.
     # <tt>output</tt> RequestLogAnalyzer::Output object to output to
     def report_header(output)
-      output << "<div class='tabbertab'>"
+      output << "<div class='tabbertab'>" if output.class.name =~ /html/i
       output.title("Parsing summary")
 
       table_opts = {:id => 'request-summary'}
@@ -119,7 +119,7 @@ module RequestLogAnalyzer::Aggregator
         end
       end
       output << "\n"
-      output << "</div>"
+      output << "</div>" if output.class.name =~ /html/i
     end
 
     # Generate report footer.
