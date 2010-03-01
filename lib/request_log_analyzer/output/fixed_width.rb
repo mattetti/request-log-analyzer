@@ -156,7 +156,7 @@ module RequestLogAnalyzer::Output
         elsif column[:width]
           column[:width]
         elsif column[:min_width]
-          [column[:min_width], column[:actual_width]].max
+          [column[:min_width] || 0, column[:actual_width] || 0].max
         elsif column[:max_width]
           [column[:max_width], column[:actual_width]].min
         else
@@ -178,7 +178,7 @@ module RequestLogAnalyzer::Output
         columns.each_with_index do |column, index|
           width = column_widths[index]
           alignment = (column[:align] == :right ? '' : '-')
-          column_titles.push(colorize("%#{alignment}#{width}s" % column[:title].to_s[0...width], :bold))
+          column_titles.push(colorize("%#{alignment}#{width}s" % column[:title].to_s[0...width.to_i], :bold))
         end
 
         puts column_titles.join(style[:cell_separator] ? " #{characters[:vertical_line]} " : ' ')
@@ -189,7 +189,7 @@ module RequestLogAnalyzer::Output
       rows.each do |row|
         row_values = []
         columns.each_with_index do |column, index|
-          width = column_widths[index]
+          width = column_widths[index].to_i
           case column[:type]
           when :ratio
             if width > 4

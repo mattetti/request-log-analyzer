@@ -87,13 +87,13 @@ module RequestLogAnalyzer::Output
 
       @io << "<html>"
       @io << tag(:head) do |headers|
-        tabber_js_file    = File.expand_path(File.join(File.dirname(__FILE__), 'scea', 'tabber-minimized.js'))
+        # tabber_js_file    = File.expand_path(File.join(File.dirname(__FILE__), 'scea', 'tabber-minimized.js'))
         table_sorter_file = File.expand_path(File.join(File.dirname(__FILE__), 'scea', 'table-sorter.js'))
         css_file          = File.expand_path(File.join(File.dirname(__FILE__), 'scea', 'style.css'))
 
         headers << tag(:title, 'SCEA Log Analyzer Report')
         headers << tag(:style, File.open(css_file).read, :type => "text/css")
-        headers << tag(:script, File.open(tabber_js_file).read, :type => 'text/javascript')
+        # headers << tag(:script, File.open(tabber_js_file).read, :type => 'text/javascript')
         headers << tag(:script, File.open(table_sorter_file).read, :type => 'text/javascript')
       end
       @io << '<body>'
