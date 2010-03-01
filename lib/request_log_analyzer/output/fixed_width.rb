@@ -146,6 +146,7 @@ module RequestLogAnalyzer::Output
         lengths = row.map { |column| column.to_s.length }
         result.each_with_index { |length, index| result[index] = ([length, lengths[index]].max rescue length) }
       end
+      columns = columns.first
       columns.each_with_index { |col, index| col[:actual_width] ||= max_cell_widths[index] }
 
       # determine actual column width
