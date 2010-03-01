@@ -103,6 +103,7 @@ module RequestLogAnalyzer::FileFormat
 
       analyze.frequency :category => :user_agent, :title => "User agents"    if line_definition.captures?(:user_agent)
       analyze.frequency :category => :referer,    :title => "Referers"       if line_definition.captures?(:referer)
+      analyze.frequency :category => :platform,    :title => "Platforms"     if line_definition.captures?(:platform)
 
       analyze.duration :duration => :duration,  :category => lambda { |r| r.category }, :title => 'Request duration' if line_definition.captures?(:duration)
       analyze.traffic  :traffic => :bytes_sent, :category => lambda { |r| r.category }, :title => 'Traffic'          if line_definition.captures?(:bytes_sent)
