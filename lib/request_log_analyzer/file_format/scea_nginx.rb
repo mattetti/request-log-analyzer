@@ -23,7 +23,7 @@ module RequestLogAnalyzer::FileFormat
     
     def self.access_line_definition(format_string)
       scea_nginx_format_string = '%h - - %t %s "%r" %b "-" "%{Referer}i (%{Platform}i) %{User-agent}i" "-" (%T)'
-      super('%h - - %t %s "%r" %b "-" "%{Referer}i (%{Platform}i) %{User-agent}i" "-" (%T)')
+      super('%h - - %t %s "%r" %b "-" "%{Referer}i (%{Platform}i) %{User-agent}i" "%a" (%T)')
     end
     
   end
