@@ -136,14 +136,20 @@ module RequestLogAnalyzer::Output
         content = content_string unless content_string.empty?
         "<#{tag}#{attributes}>#{content}</#{tag}>"
       else
-        attributes = attributes.nil? ? '' : ' ' + attributes.map { |(key, value)| "#{key}=\"#{value}\"" }.join(' ')
+        tattributes = if attributes.nil?
+          ''
+        elsif attributes.respond_to?(:map)
+          ' ' + attributes.map { |(key, value)| "#{key}=\"#{value}\"" }.join(' ')
+        else
+          ' ' + attributes
+        end
         if content.nil?
-          "<#{tag}#{attributes} />"
+          "<#{tag}#{tattributes} />"
         else
           if content.class == Float
-            "<#{tag}#{attributes}><div class='color_bar' style=\"width:#{(content*200).floor}px;\"/></#{tag}>"
+            "<#{tag}#{tattributes}><div class='color_bar' style=\"width:#{(content*200).floor}px;\"/></#{tag}>"
           else
-            "<#{tag}#{attributes}>#{content}</#{tag}>"
+            "<#{tag}#{tattributes}>#{content}</#{tag}>"
           end
         end
       end
