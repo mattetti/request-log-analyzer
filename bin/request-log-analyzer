@@ -72,7 +72,7 @@ rescue CommandLine::Error => e
   puts "Input options:"
   puts "  --after <date>             Only consider requests from <date> or later."
   puts "  --before <date>            Only consider requests before <date>."
-  puts "  --format <format>, -f:     Log file format. amazon_s3, apache, merb, mysql, rack or rails."
+  puts "  --format <format>, -f:     Log file format. amazon_s3, apache, merb, mysql, rack or rails, scea_nginx, scea_rails."
   puts "  --reject <field> <value>   Only consider requests where <field> does not match <value>."
   puts "  --select <field> <value>   Only consider requests where <field> matches <value>."
   puts
@@ -84,9 +84,9 @@ rescue CommandLine::Error => e
   puts "  --mail <emailaddress>      Send report to an email address."
   puts "  --mailhost <server>        Use the given server as the SMTP server for sending email."
   puts "  --no-progress              Hide the progress bar."
-  puts "  --output <format>          Output format. Supports 'html' and 'fixed_width'."
+  puts "  --output <format>          Output format. Supports 'html', 'fixed_width', 'fancy', 'scea'."
   puts "  --report-width <amount>    Width of ASCII report. Defaults to terminal width."
-  puts "  --report-amount <amount>   Maximum numer of results per report."
+  puts "  --report-amount <amount>   Maximum number of results per report."
   puts "  --yaml <filename>          Dump the results in YAML format in the given file."
   puts
   puts "Examples:"
