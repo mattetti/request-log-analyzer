@@ -129,6 +129,8 @@ module RequestLogAnalyzer::Aggregator
         output << "<div id='parse-warning'>" if output.class.name =~ /html/i
         output.title("Parse warnings")
 
+        output.puts @warnings_encountered.inspect
+        output.puts "\n"
         output.puts "Parsable lines were encountered without a header line before it. It"
         output.puts "could be that logging is not setup correctly for your application."
         output.puts "Visit this website for logging configuration tips:"
